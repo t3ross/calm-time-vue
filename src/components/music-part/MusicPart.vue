@@ -2,7 +2,9 @@
 
 <template>
   <div class="container">
-    <p id="author">{{ currentMusic.author ? currentMusic.author : "" }}</p>
+    <p class="author" :class="{ authorAppear: currentMusic.author }">
+      {{ currentMusic.author ? currentMusic.author : "" }}
+    </p>
     <p id="song">
       {{ currentMusic.title ? currentMusic.title : "Play start..." }}
     </p>
@@ -38,7 +40,7 @@
 <style scoped lang="scss">
 .container {
   background: var(--light-blue) url("@/assets/dots.svg") repeat-x 0 65vh;
-  background-size: 70%;
+  background-size: 450px;
   display: grid;
   position: relative;
   grid-template-rows: 1px 60px 20px 1px;
@@ -46,20 +48,35 @@
   place-items: center;
   padding-bottom: 50px;
   gap: 24px;
-  animation: movement 10s linear infinite;
+  animation: dotsMovement 2.5s linear infinite;
 
-  #author {
-    position: relative;
-    top: 10px;
-    color: var(--light-white);
-    font-size: 1.3rem;
-  }
-  @keyframes movement {
+  @keyframes dotsMovement {
     0% {
       background-position-x: 0;
     }
     100% {
-      background-position-x: 310px;
+      background-position-x: 75px;
+    }
+  }
+
+  .author {
+    position: relative;
+    color: var(--light-white);
+    font-size: 1.3rem;
+    z-index: 10;
+    top: 60px;
+  }
+
+  .authorAppear {
+    animation: 1s cubic-bezier(0, 0, 0.19, 0.98) 0.7s authorAppear forwards;
+  }
+
+  @keyframes authorAppear {
+    0% {
+      transform: translateY(0px);
+    }
+    100% {
+      transform: translateY(-60px);
     }
   }
 }
@@ -74,6 +91,7 @@
   padding: 20px;
   text-align: center;
   width: 300px;
+  z-index: 20;
 }
 .music-icons {
   display: grid;
@@ -84,6 +102,7 @@
   color: var(--light-pink);
   cursor: pointer;
   font-size: 3.2rem;
+  transition: all 0.3s;
 }
 .fa-circle-pause {
   cursor: pointer;

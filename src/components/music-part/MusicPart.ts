@@ -18,7 +18,10 @@ export default defineComponent({
       () => store.getters["musicPlayer/isMusicPlaying"]
     );
     const audio = new Audio();
-    audio.onended = () => nextMusic();
+    audio.onended = () => {
+      if (numberSong.value !== shuffledSongs.length - 1) return nextMusic();
+      return pauseMusic();
+    };
 
     const playMusic = () => {
       if (!store.state.musicPlayer.musicStarted) {
@@ -32,10 +35,21 @@ export default defineComponent({
         store.commit("musicPlayer/truePlayingStatus");
       }
     };
-
+    const pauseMusic = () => {
+      store.commit("musicPlayer/pauseMusic");
+      audio.pause();
+    };
     const nextMusic = () => {
       if (index >= 0 && index < shuffledSongs.length - 1) {
         index += 1;
+        numberSong.value = index;
+        store.commit("musicPlayer/changeMusicStarted");
+        playMusic();
+      }
+    };
+    const prevMusic = () => {
+      if (index > 0 && index <= shuffledSongs.length - 1) {
+        index -= 1;
         numberSong.value = index;
         store.commit("musicPlayer/changeMusicStarted");
         playMusic();
@@ -52,18 +66,8 @@ export default defineComponent({
       playMusic,
       numberSong,
       nextMusic,
-      prevMusic: () => {
-        if (index > 0 && index <= shuffledSongs.length - 1) {
-          index -= 1;
-          numberSong.value = index;
-          store.commit("musicPlayer/changeMusicStarted");
-          playMusic();
-        }
-      },
-      pauseMusic: () => {
-        store.commit("musicPlayer/pauseMusic");
-        audio.pause();
-      },
+      prevMusic,
+      pauseMusic,
     };
   },
 });

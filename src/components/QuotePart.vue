@@ -1,9 +1,4 @@
 <template>
-  <header>
-    <p class="header-text">Enjoying <strong>/</strong> Life</p>
-    <i class="fa-solid fa-face-smile-beam"></i>
-  </header>
-
   <main>
     <img src="@/assets/Moon.svg" alt="Moon Image" />
     <span>
@@ -31,30 +26,6 @@ p {
 }
 .la-smile-beam {
   color: red;
-}
-
-header {
-  align-items: center;
-  border-bottom: 4px solid rgba(255, 255, 255, 0.5);
-  display: flex;
-  font-size: 1.5rem;
-  gap: 16px;
-  height: 70px;
-  position: absolute;
-  justify-content: end;
-  padding-right: 24px;
-  z-index: 10;
-  width: 100px;
-  .fa-face-smile-beam {
-    font-size: 24px;
-    color: #4f71b3;
-  }
-  p {
-    font-size: 1.7rem;
-  }
-  strong {
-    padding: 8px;
-  }
 }
 
 span {
