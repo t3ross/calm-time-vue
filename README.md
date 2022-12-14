@@ -1,5 +1,10 @@
 # calm-time
 
+## Project link:
+```
+https://calm-time.netlify.app/#/
+```
+
 ## Project setup
 ```
 npm install
